@@ -1,2 +1,2 @@
-# sprints_scripts
+# Sprints Scripts
 BAS Cybersecurity Automation course scripts
