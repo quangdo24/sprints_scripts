@@ -1,7 +1,8 @@
 #!/usr/bin/python3
-# <REPLACE THIS LINE WITH A DESCRIPTION OF SCRIPT>
+# This script parses a log file and writes the results to a CSV file.
 # Licensed under the MIT License (https://opensource.org/license/mit)
-# Author: Quang Do | Version: 1.0.0 | Date: 2026-04-13
+# QuangDo-20260426: V1.0.0
+
 # Set up initial variables and imports
 import sys
 import re
@@ -9,6 +10,7 @@ import csv
 
 # Script/Library Functions
 def main():
+    """Main function to parse the log file and write the results to a CSV file."""
     # Check if 2 arguments are provided
     if len(sys.argv) != 3:
         print("Usage: python logparser.py <filename> <output.csv>")
