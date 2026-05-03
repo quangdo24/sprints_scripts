@@ -14,6 +14,8 @@ import json
 import datetime
 import psutil
 import cpuinfo
+import socket
+
 
 
 def collect_sysinfo():
@@ -25,9 +27,40 @@ def collect_sysinfo():
     sysinfo['CPU_Brand'] = cpuinfo.get_cpu_info().get('brand_raw')
     sysinfo['CPU_Arch'] = cpuinfo.get_cpu_info().get('arch')
     sysinfo['CPU_Cores'] = cpuinfo.get_cpu_info().get('count')
+    sysinfo['RAM_Total'] = psutil.virtual_memory().total / (1024**3)
+    sysinfo['RAM_Used'] = psutil.virtual_memory().used / (1024**3)
+    sysinfo['RAM_Free'] = psutil.virtual_memory().available / (1024**3)
+    sysinfo['RAM_Percent_Used'] = psutil.virtual_memory().percent
+    sysinfo['Disk_Percent_Used'] = psutil.disk_usage('/').percent
+    sysinfo['Disk_Total'] = psutil.disk_usage('/').total / (1024**3)
+    sysinfo['Disk_Free'] = psutil.disk_usage('/').free / (1024**3)
+    sysinfo['Disk_Mounted'] = psutil.disk_usage('/')
+    sysinfo['IP_Address'] = get_local_ip_address()
+    sysinfo['MAC_Address'] = get_mac_address()
+    sysinfo['Uptime'] = datetime.datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")
 
-    
     return sysinfo
+
+def get_local_ip_address():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    return s.getsockname()[0]
+
+def get_mac_address():
+    local_ip = get_local_ip_address()
+    for interface, addrs in psutil.net_if_addrs().items():
+        for row in addrs:
+            if row.family == socket.AF_INET and row.address == local_ip:
+                break
+        else:
+            continue  # inner loop finished without break → no IP on this iface
+
+        for row in addrs:
+            if row.family == psutil.AF_LINK:
+                return row.address
+        break
+
+    return None
 
 
 # Helper: directory containing this script (for output file paths).
