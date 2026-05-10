@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-# Description of this script goes here
+# sysinfo.py: Collect system information and print to console or write to CSV or JSON file.
 # Licensed under the MIT License (https://opensource.org/license/mit)
-# QuangDo-20260426: V1.0.0
+# QuangDo-20260512: V1.0.0 
 
 # Set up initial variables and imports
 import os
