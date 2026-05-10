@@ -1,0 +1,57 @@
+{
+  "HOSTNAME": "netpi",
+  "OS": "Linux",
+  "OS_version": "6.12.47+rpt-rpi-v8",
+  "KERNEL_VERSION": "6.12.47+rpt-rpi-v8",
+  "CPU_BRAND": "Cortex-A72",
+  "CPU_ARCH": "ARM_8",
+  "CPU_CORES": 4,
+  "RAM_TOTAL": 3.707752227783203,
+  "RAM_USED": 1.2518577575683594,
+  "RAM_FREE": 2.4558944702148438,
+  "RAM_Percent_Used": 33.8,
+  "DISK_PERCENT_USED": 18.4,
+  "DISK_TOTAL": 28.7940673828125,
+  "DISK_FREE": 22.50693130493164,
+  "DISK_MOUNTED": [
+    30917394432,
+    5455339520,
+    24166633472,
+    18.4
+  ],
+  "IP_ADDRESS": "10.0.0.180",
+  "MAC_ADDRESS": "d8:3a:dd:a2:01:44",
+  "UPTIME": "2026-04-02 23:00:24",
+  "TOP_5_CPU_PROCESSES": [
+    {
+      "pid": 202218,
+      "name": "python3",
+      "cpu_percent": 42.3,
+      "memory_percent": 0.4100970713966038
+    },
+    {
+      "pid": 174575,
+      "name": "node",
+      "cpu_percent": 6.3,
+      "memory_percent": 3.8131002659560784
+    },
+    {
+      "pid": 174658,
+      "name": "node",
+      "cpu_percent": 6.2,
+      "memory_percent": 1.89307228140931
+    },
+    {
+      "pid": 1,
+      "name": "systemd",
+      "cpu_percent": 0.0,
+      "memory_percent": 0.36071257709896964
+    },
+    {
+      "pid": 2,
+      "name": "kthreadd",
+      "cpu_percent": 0.0,
+      "memory_percent": 0.0
+    }
+  ]
+}
