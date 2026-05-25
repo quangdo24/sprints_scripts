@@ -72,7 +72,6 @@ Listed in `requirements.txt`:
 |---------|---------|
 | `python-nmap` | Lets Python call the Nmap program and read scan results. |
 | `requests` | Sends HTTP requests to ip-api.com for geolocation. |
-| `paramiko` | Listed for optional future SSH features; **not used** by the current version of `netrecon.py`. |
 
 The standard library module `ipaddress` (used for IP validation) ships with Python—you do not install it separately.
 

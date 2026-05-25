@@ -35,8 +35,3 @@ net@rer# Project: Network Reconnaissance Tool
 * **Dependencies:** You must install the appropriate Python modules and system packages.
 * **Parsing:** Nmap returns nested dictionary structures. Iterate through them carefully. **Test on localhost first.**
 * **Error Handling:** Handle bad input or failures gracefully. The script should prompt the user to fix inputs rather than throwing unhelpful errors or failing silently.
-
----
-
-## Extra Credit
-* Add an optional `--remote <ip>` flag that uses **Paramiko** to SSH into a remote host.

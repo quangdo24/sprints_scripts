@@ -2,7 +2,6 @@
 # netrecon.py:
 # Licensed under the MIT License (https://opensource.org/license/mit)
 # QuangDo-05-24-1: V1.0.0
-
 import argparse
 import nmap
 import csv
