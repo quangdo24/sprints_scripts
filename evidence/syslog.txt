@@ -1,0 +1,2 @@
+# syslog sample (journalctl -t healthmon)
+Jun 06 22:43:02 netpi healthmon[248398]: WARNING Disk usage breached threshold: 26.5% (threshold 1%)

@@ -1,0 +1,22 @@
+2026-06-06 22:43:01,960 INFO Disk usage OK: 26.5% (threshold 80%)
+2026-06-06 22:43:01,961 INFO Memory usage OK: 25.3% (threshold 90%)
+2026-06-06 22:43:01,961 INFO CPU load (1m) OK: 0.16 (threshold 2.0)
+2026-06-06 22:43:01,961 INFO Service sshd OK: active (threshold active)
+2026-06-06 22:43:01,961 INFO Service cron OK: active (threshold active)
+2026-06-06 22:43:01,962 INFO === Health Monitor Summary ===
+Disk usage      26.5% (threshold 80%)           OK
+Memory usage    25.3% (threshold 90%)           OK
+CPU load (1m)   0.16 (threshold 2.0)            OK
+Service sshd    active (threshold active)       OK
+Service cron    active (threshold active)       OK
+Overall:        HEALTHY
+2026-06-06 22:43:02,250 WARNING Disk usage breached threshold: 26.5% (threshold 1%)
+2026-06-06 22:43:02,252 INFO Memory usage OK: 25.5% (threshold 90%)
+2026-06-06 22:43:02,252 INFO CPU load (1m) OK: 0.23 (threshold 2.0)
+2026-06-06 22:43:02,252 INFO Service sshd OK: active (threshold active)
+2026-06-06 22:43:02,252 INFO Service cron OK: active (threshold active)
+2026-06-06 22:49:59,059 INFO Disk usage OK: 26.5% (threshold 80%)
+2026-06-06 22:49:59,060 INFO Memory usage OK: 24.9% (threshold 90%)
+2026-06-06 22:49:59,060 INFO CPU load (1m) OK: 0.05 (threshold 2.0)
+2026-06-06 22:49:59,060 INFO Service sshd OK: active (threshold active)
+2026-06-06 22:49:59,060 INFO Service cron OK: active (threshold active)

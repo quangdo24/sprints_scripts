@@ -5,6 +5,6 @@
         "cpu_load_1min": 2.0,
         "services": ["sshd", "cron"]
     },
-    "log_file": "/home/netpi/healthmon.log",
-    "alert_log": "/home/netpi/alerts.log"
+    "log_file": "/home/netpi/projects/sprints_scripts/evidence/healthmon.log",
+    "alert_log": "/home/netpi/projects/sprints_scripts/evidence/alerts.log"
 }
