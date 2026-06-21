@@ -1,0 +1,50 @@
+---
+# deploy.yml — deploy healthmon.py and config.json to linux2
+#
+# Copies application files, sets permissions, schedules cron, and verifies
+# the script runs. Idempotent: second run should report changed=0.
+
+- name: Deploy healthmon to linux2
+  hosts: linux2
+  vars:
+    project_root: /home/ubuntu/projects/sprints_scripts
+    config_path: "{{ project_root }}/config.json"
+    script_path: "{{ project_root }}/healthmon.py"
+    cron_log: "{{ project_root }}/evidence/healthmon-cron.log"
+    cron_interval: 5
+    deploy_user: ubuntu
+
+  tasks:
+    - name: Copy healthmon.py to linux2
+      ansible.builtin.copy:
+        src: healthmon.py
+        dest: "{{ script_path }}"
+        owner: "{{ deploy_user }}"
+        group: "{{ deploy_user }}"
+        mode: "0755"
+
+    - name: Copy config.json to linux2
+      ansible.builtin.copy:
+        src: config.json
+        dest: "{{ config_path }}"
+        owner: "{{ deploy_user }}"
+        group: "{{ deploy_user }}"
+        mode: "0644"
+
+    - name: Schedule healthmon cron job
+      ansible.builtin.cron:
+        name: healthmon
+        minute: "*/{{ cron_interval }}"
+        job: "/usr/bin/python3 {{ script_path }} {{ config_path }} >> {{ cron_log }} 2>&1"
+        user: "{{ deploy_user }}"
+        state: present
+
+    - name: Verify healthmon runs successfully
+      ansible.builtin.command:
+        cmd: "/usr/bin/python3 {{ script_path }} {{ config_path }} --check"
+      register: healthmon_check
+      changed_when: false
+
+    - name: Show healthmon check output
+      ansible.builtin.debug:
+        var: healthmon_check.stdout_lines
