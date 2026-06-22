@@ -13,8 +13,8 @@ This README covers **Sprint 5 (Ansible)**: deploying `healthmon.py` from Sprint 
 | `configure.yml` | Prepare linux2: packages, Python deps, directories |
 | `deploy.yml` | Copy `healthmon.py` + `config.json`, schedule cron, verify |
 
-**Control node:** linux1 (`ip-172-31-70-29`) — where you run `ansible-playbook`  
-**Managed node:** linux2 (`52.0.222.192`) — receives healthmon
+**Control node:** linux1 — where you run `ansible-playbook`  
+**Managed node:** linux2 — receives healthmon
 
 ---
 
@@ -53,21 +53,23 @@ ansible --version
 
 ```ini
 [servers]
-linux1 ansible_host=3.221.66.131 ansible_connection=local
-linux2 ansible_host=52.0.222.192 ansible_user=ubuntu
+linux1 ansible_host=enter-ip-linux1 ansible_connection=local
+linux2 ansible_host=enter-ip-linux2 ansible_user=ubuntu
 
 [servers:vars]
 ansible_ssh_private_key_file=~/.ssh/id_ed25519
 ```
 
+Replace `enter-ip-linux1` and `enter-ip-linux2` with each host's public or private IP (or a resolvable hostname).
+
 | Variable | Meaning |
 |----------|---------|
-| `ansible_host` | IP address Ansible uses to reach the host |
+| `ansible_host` | IP or hostname Ansible uses to reach the host |
 | `ansible_connection=local` | Run tasks on linux1 without SSH |
 | `ansible_user` | SSH username on linux2 |
 | `ansible_ssh_private_key_file` | Private key for SSH to linux2 |
 
-Update `ansible_host` values if your public IPs change after an instance stop/start.
+Update `ansible_host` in `inventory.ini` if linux1 or linux2 addresses change after an instance stop/start.
 
 ---
 
@@ -128,39 +130,12 @@ ansible-playbook -i inventory.ini deploy.yml
 
 ---
 
-## Idempotency Demonstration
-
-Ansible playbooks should be **idempotent**: running them again makes no changes if the system is already in the desired state.
-
-Run each playbook **twice** and compare the summary line:
-
-```bash
-ansible-playbook -i inventory.ini configure.yml
-ansible-playbook -i inventory.ini configure.yml   # second run
-
-ansible-playbook -i inventory.ini deploy.yml
-ansible-playbook -i inventory.ini deploy.yml      # second run
-```
-
-**First run** — expect tasks with `changed=1` (packages installed, files copied, cron added).
-
-**Second run** — expect **`changed=0`** on all tasks:
-
-```text
-PLAY RECAP *********************************************************************
-linux2   : ok=6    changed=0    unreachable=0    failed=0    skipped=0    ...
-```
-
-That `changed=0` on the second run is your idempotency evidence.
-
----
-
 ## Verify on linux2
 
 SSH into linux2 and confirm:
 
 ```bash
-ssh ubuntu@52.0.222.192
+ssh ubuntu@linux2
 
 # Files deployed
 ls -la ~/projects/sprints_scripts/
@@ -176,35 +151,3 @@ ls ~/projects/sprints_scripts/evidence/
 ```
 
 ---
-
-## Troubleshooting
-
-| Problem | Fix |
-|---------|-----|
-| `Permission denied (publickey)` | Add linux1's public key to linux2 `authorized_keys` |
-| `UNREACHABLE` on linux2 | Check security group allows SSH (port 22) from linux1 |
-| `Could not open log file` | Run `configure.yml` first to create the evidence directory |
-| `No module named psutil` | Re-run `configure.yml` (installs `python3-psutil`) |
-| Stale IP in inventory | Update `ansible_host` in `inventory.ini` after instance restart |
-
----
-
-## Submission Checklist (Sprint 5)
-
-| Deliverable | File |
-|-------------|------|
-| Inventory | `inventory.ini` |
-| System configuration playbook | `configure.yml` |
-| Script deployment playbook | `deploy.yml` |
-| Health monitor script | `healthmon.py` |
-| Config file | `config.json` |
-| Idempotency evidence | Second playbook run showing `changed=0` |
-| Documentation | This README |
-| Branch | `sprint5-ansible` |
-
----
-
-## Related Sprints
-
-- **Sprint 4:** `healthmon.py` — disk, memory, CPU, and service monitoring with configurable thresholds
-- **Setup lab:** Two AWS EC2 instances, SSH keys, Tailscale optional
